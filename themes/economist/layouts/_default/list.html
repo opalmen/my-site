@@ -1,0 +1,56 @@
+{{ define "main" }}
+<div class="container">
+
+  <header class="list-header">
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with .Content }}<div class="page-intro">{{ . }}</div>{{ end }}
+  </header>
+
+  {{ if eq .Section "publications" }}
+    {{ $pubs := .Pages.ByParam "year" | collections.Reverse }}
+    {{ $types := slice "Working Paper" "Journal Article" "Book Chapter" "Book" "Other" "Ongoing" }}
+    {{ range $types }}
+      {{ $type := . }}
+      {{ $filtered := where $pubs "Params.type" $type }}
+      {{ if $filtered }}
+      <section class="pub-group">
+        <h2 class="pub-group-heading">{{ if eq $type "Ongoing" }}Ongoing Research{{ else }}{{ $type }}s{{ end }}</h2>
+        {{ range $filtered }}
+        <div class="pub-entry">
+          <div class="pub-main">
+           <p class="pub-title">{{ .Title }}{{ if eq .Params.type "Ongoing" }} <span style="font-style:italic; font-weight:400; font-size:0.9em; color: var(--color-text-light);">(in progress)</span>{{ end }}</p>
+            {{ with .Params.authors }}<p class="pub-authors">{{ . }}</p>{{ end }}
+            <p class="pub-details">
+              {{- $parts := slice -}}
+              {{- with .Params.journal }}{{ $parts = $parts | append (printf "<em>%s</em>" .) }}{{ end -}}
+              {{- with .Params.year }}{{ $parts = $parts | append (printf "%d" .) }}{{ end -}}
+              {{- with .Params.volume }}{{ $parts = $parts | append (printf "vol. %s" .) }}{{ end -}}
+              {{- with .Params.pages }}{{ $parts = $parts | append (printf "pp. %s" .) }}{{ end -}}
+              {{ delimit $parts ", " | safeHTML }}
+            </p>
+          </div>
+          <div class="pub-links">
+            {{ with .Params.pdf }}<a class="pub-link" href="{{ . }}">PDF</a>{{ end }}
+            {{ with .Params.doi }}<a class="pub-link" href="https://doi.org/{{ . }}">Link</a>{{ end }}
+            {{ with .Params.ssrn }}<a class="pub-link" href="{{ . }}">Link</a>{{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </section>
+      {{ end }}
+    {{ end }}
+
+  {{ else }}
+    {{ range .Pages }}
+    <article class="post-preview">
+      <h2 class="post-preview-title">
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+      </h2>
+      <time class="post-date">{{ .Date.Format "January 2, 2006" }}</time>
+      {{ with .Summary }}<p class="post-summary">{{ . }}</p>{{ end }}
+    </article>
+    {{ end }}
+  {{ end }}
+
+</div>
+{{ end }}

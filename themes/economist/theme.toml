@@ -1,0 +1,6 @@
+name = "economist"
+license = "MIT"
+licenselink = ""
+description = "A clean academic theme inspired by Paul Romer's site"
+homepage = ""
+min_version = "0.110.0"

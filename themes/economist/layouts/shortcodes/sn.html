@@ -1,0 +1,3 @@
+{{ $id := .Get "id" }}
+{{ $note := .Get "note" }}
+<span class="sn-anchor" data-sn="{{ $id }}">{{ .Inner }}</span><label for="{{ $id }}" class="sidenote-toggle sidenote-number" data-sn="{{ $id }}"></label><input type="checkbox" id="{{ $id }}" class="sidenote-toggle-checkbox" /><span class="sidenote" data-sn="{{ $id }}">{{ $note | markdownify }}</span>

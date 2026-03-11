@@ -1,0 +1,19 @@
+{{/*
+  Sidenote shortcode
+  Usage: {{< sidenote id="sn1" >}}Your sidenote text here.{{< /sidenote >}}
+  
+  In the body text, use the anchor:
+  {{< sidenote-ref id="sn1" >}}the relevant text{{< /sidenote-ref >}}
+  
+  OR combined usage (wraps text + creates note):
+  {{< sn id="sn1" note="Your sidenote text." >}}the relevant text{{< /sn >}}
+*/}}
+
+{{ $id := .Get "id" }}
+<span class="sidenote-wrapper">
+  <label for="{{ $id }}" class="sidenote-toggle sidenote-number"></label>
+  <input type="checkbox" id="{{ $id }}" class="sidenote-toggle-checkbox" />
+  <span class="sidenote" data-sn="{{ $id }}">
+    {{ .Inner | markdownify }}
+  </span>
+</span>

@@ -1,0 +1,34 @@
+baseURL = "https://yourdomain.com/"
+languageCode = "en-us"
+title = "Olli Palmén"
+theme = "economist"
+paginate = 10
+
+[params]
+  name = "Olli Palmén"
+  email = "palmen.olli@gmail.com"
+  google_scholar = "https://scholar.google.com/citations?user=kqxiBfUAAAAJ&hl=en&oi=sra"
+  linkedin = "https://www.linkedin.com/in/olli-palmen-b9385848/"
+  github = "https://github.com/opalmen"
+
+[menu]
+  [[menu.main]]
+    name = "About"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Research"
+    url = "/publications/"
+    weight = 2
+  [[menu.main]]
+    name = "Notes"
+    url = "/posts/"
+    weight = 3
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "monokailight"
+    noClasses = true
